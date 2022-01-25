@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from .forms import UserLoginForm, UserRegistrationForm
+from .models import User
 
 # Create your views here.
 def user_register(request):
@@ -10,11 +11,18 @@ def user_register(request):
         return render(request, 'customUser/register.html', {"form": UserRegistrationForm()})
     if request.method == "POST":
         # Make bounded form
+        bounded_form = UserRegistrationForm(request.POST)
         # Check if valid
-        # Extract username and password
-        # create_user()
-        # return SUCCESS
-        pass
+        if bounded_form.is_valid():
+            # Extract username and password
+            username = bounded_form.cleaned_data['username']
+            password = bounded_form.cleaned_data['password1']
+
+            new_user = User.objects.create_user(username=username, password=password)
+            print(new_user)
+            return HttpResponse('SUCCESS')
+    
+        return HttpResponse('FAILURE')
 
 
 def user_login(request):
@@ -40,6 +48,3 @@ def user_logout(request):
     return HttpResponse('You have been logged out')
 
 
-    
-
-    

@@ -1,0 +1,10 @@
+.navbar {
+    display: flex;
+    background-color: bisque;
+}
+
+.navbar-item {
+    list-style: none;
+    margin: 20px;
+    padding: 10px;
+}

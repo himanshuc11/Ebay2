@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% block body %}
 <form method="POST">
   {% csrf_token %} {{form.as_p}}
+  <input name="abc" />
   <button>Submit form</button>
 </form>
 

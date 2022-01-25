@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,6 +23,8 @@
       crossorigin="anonymous"
     />
 
+    <link rel="stylesheet" href={% static 'style.css' %}></link>
+
     <!-- Latest compiled and minified JavaScript -->
     <script
       src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
@@ -28,7 +32,16 @@
       crossorigin="anonymous"
     ></script>
   </head>
+
   <body>
+    <nav>
+      <ul class="navbar">
+        <a href={% url 'index' %}><li class="navbar-item">Home</li></a>
+        <a href={% url 'user_login' %}><li class="navbar-item">Login</li></a>
+        <a href={% url 'user_register' %}><li class="navbar-item">Register</li></a>
+      </ul>
+    </nav>
+
     {% block body %}{% endblock body %}
   </body>
 </html>

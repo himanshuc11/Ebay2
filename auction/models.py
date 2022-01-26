@@ -18,6 +18,7 @@ class Items(models.Model):
     description = models.CharField(max_length=512)
     owner = models.ForeignKey(User, on_delete=models.PROTECT)
     tags = models.ManyToManyField(Category)
+    image = models.ImageField(null=True,blank=True,upload_to='image/')
 
     def __str__(self):
         return f"{self.name}"

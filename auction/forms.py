@@ -5,4 +5,4 @@ from .models import Items
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Items
-        exclude = []
+        exclude = ['owner']

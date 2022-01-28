@@ -1,20 +1,24 @@
 .navbar {
-    display: flex;
-    background-color: bisque;
-    background-color: blue;
+  display: flex;
+  background-color: bisque;
 }
 
 .navbar-item {
-    list-style: none;
-    margin: 20px;
-    padding: 10px;
+  list-style: none;
+  margin: 20px;
+  padding: 10px;
 }
 
 .item-list {
-    display: flex;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .item {
-    background-color: blanchedalmond;
-    border: 2px solid black;
+  margin: 10px;
+  width: 400px;
+  height: 400px;
+  background-color: blanchedalmond;
+  border: 2px solid black;
 }

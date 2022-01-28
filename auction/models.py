@@ -22,3 +22,19 @@ class Items(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+class Comment(models.Model):
+    comment = models.TextField()
+    product = models.ForeignKey(Items, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user}: commented {self.comment} on : {self.product}"
+
+class Bid(models.Model):
+    amount = models.PositiveIntegerField()
+    bidder = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Items, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.bidder} bids {self.amount} on {self.product}"

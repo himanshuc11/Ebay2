@@ -1,6 +1,11 @@
-{% extends 'base.html' %} {% block body %}
+{% extends 'base.html' %} {% block body %} {% if user.is_authenticated %}
+
 <form method="POST" enctype="multipart/form-data">
   {% csrf_token %} {{form.as_p}}
   <button>Submit</button>
 </form>
-{% endblock body %}
+
+{% else%}
+<h1>Please Login To add items to auction</h1>
+
+{% endif %} {% endblock body %}

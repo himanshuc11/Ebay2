@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% block body %}
+
+<div class="item">
+  <img
+    src="http://127.0.0.1:8000/media/{{item.image}}"
+    heiight="250px"
+    width="250px"
+  />
+  <p>{{item.name}}</p>
+  <p>{{item.description}}</p>
+  <p>{{item.owner}}</p>
+  <p>{{item.tags}}</p>
+</div>
+
+<h1>Bidding Form</h1>
+
+{% if user.is_authenticated %}
+<form method="POST">
+  {% csrf_token %}
+  <input type="number" name="bid" />
+  <button>Submit Bid</button>
+</form>
+{% else %}
+<h1>Please Login To Bid</h1>
+{% endif %}
+
+<p>Here we will Show all the Comments</p>
+{% for comment in comments %}
+<div>
+  <p>{{comment.user}}</p>
+  <p>{{comment.comment}}</p>
+</div>
+{% endfor %} {% if user.is_authenticated %}
+
+<form method="POST">
+  {% csrf_token %}
+  <label
+    >Comment:
+    <input type="text" name="comment" placeholder="Type your comment here" />
+  </label>
+  <button>Submit</button>
+</form>
+
+{% else %}
+<h1>Please Login To Comment</h1>
+{% endif %} {% endblock body %}

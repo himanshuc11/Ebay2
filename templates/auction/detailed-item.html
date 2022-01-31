@@ -12,6 +12,12 @@
   <p>{{item.tags}}</p>
 </div>
 
+{% if item.owner == user %}
+<form method="GET" action={% url 'close_auction' item.id %}>
+  <button type="submit">Close the auction</button>
+</form>
+{% endif %}
+
 <h1>Bidding Form</h1>
 
 {% if user.is_authenticated %}

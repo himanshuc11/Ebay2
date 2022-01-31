@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 from .models import Bid, Comment, Items
 from .forms import ItemForm
+from django.db.models import Max
 
 # Create your views here.
 def index(request):
@@ -60,10 +61,28 @@ def create_item(request):
             return HttpResponse(bounded_form.errors)
 
 
+# Make a field called is_active in Items to store if item is for sale or auction for this item has ended
+# Details Page, show winner if is_active is False, or show maximum bid in case of multiple bids
+# or in case of no bids, show the minimum bid amount
 
-# Only the person who posted(create-item) the item can close the auction
-# Go througn the bids to find the highest/largest bid
-# Declare the larged bid owner as the winner
 
-def close_auction(request, product_id):
-    pass
+def close_auction(request, id):
+    user = request.user
+    if not user.is_authenticated:
+        return HttpResponse('You need to be logged in')
+    try:
+        item = Items.objects.get(id=id)
+    except Items.DoesNotExist:
+        return HttpResponse('Invalid Item')
+    
+    if item.owner == user:
+        bids = Bid.objects.filter(product=item)
+        if len(bids) == 0:
+            return HttpResponse('There are no bids on the item')
+        max_bid_amount = bids.aggregate(Max('amount'))
+        max_bid_amount = max_bid_amount["amount__max"]
+        bid = bids.get(amount=max_bid_amount)
+        v = f"Winner of this product is {bid.bidder}"
+        return HttpResponse(v)
+    else:
+        return HttpResponse('You cannot close the auction')
